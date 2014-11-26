@@ -393,6 +393,19 @@ COMMAND is one of:
       end
     end
 
+    def quick
+      entry = Timer.active_entry
+      if entry.nil? 
+        sheet = Timer.current_sheet
+        out = "#{sheet}: "
+        out << "Not currently checked in"
+      else 
+        out = "#{entry.sheet}: #{format_duration(entry.duration)}".gsub(/  /, ' ')
+        out << " (#{entry.note})" if entry.note =~ /.+/
+      end
+      puts out
+    end
+
     def today
         args['-s'] = Date.today.to_s
         display
